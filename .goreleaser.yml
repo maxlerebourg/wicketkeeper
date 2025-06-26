@@ -4,3 +4,9 @@ builds:
   - main: ./main.go
     dir: ./server
     binary: wicketkeeper
+
+    goos:
+      - linux
+    goarch:
+      - 'amd64'
+      - 'arm64'
