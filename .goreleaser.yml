@@ -1,5 +1,6 @@
 version: 2
 
 builds:
-  - main: ./server
+  - main: ./server/main.go
+    dir: ./server
     binary: wicketkeeper
