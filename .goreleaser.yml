@@ -1,0 +1,3 @@
+builds:
+  - main: ./server/main.go
+    binary: wicketkeeper
