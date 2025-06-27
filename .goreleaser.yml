@@ -11,13 +11,13 @@ builds:
       - "-s -w"
 
 dockers:
-  - dockerfile: Dockerfile.goreleaser
+  - dockerfile: Dockerfile.release
     goos: linux
     goarch: arm64
     image_templates:
       - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:{{ .Version }}-arm64"
       - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:latest-arm64"
-  - dockerfile: Dockerfile.goreleaser
+  - dockerfile: Dockerfile.release
     goos: linux
     goarch: amd64
     image_templates:
