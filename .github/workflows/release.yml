@@ -32,10 +32,6 @@ jobs:
           npm run build:fast
           npm run build:slow
           mv dist/ ../server/static
-      # - name: Install go dependencies
-      #   run: |
-      #     cd server
-      #     go mod download
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
