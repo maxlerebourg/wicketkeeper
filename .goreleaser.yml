@@ -1,13 +1,9 @@
 version: 2
 
-before:
-  hooks:
-    - sh -c "cd server && go mod vendor"
-
 builds:
-  - main: ./main.go
-    dir: ./server
+  - dir: ./server
     binary: wicketkeeper
+    mod_timestamp: '{{ .CommitTimestamp }}'
 
     goos:
       - linux
