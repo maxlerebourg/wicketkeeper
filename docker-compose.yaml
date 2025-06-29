@@ -4,7 +4,7 @@ services:
   wicketkeeper:
     user: "${UID}:${GID}"
     build: .
-    # image: ghcr.io/maxlerebourg/wicketkeeper:latest
+    # image: ghcr.io/a-ve/wicketkeeper:latest
     container_name: wicketkeeper-app
     restart: unless-stopped
     ports:
