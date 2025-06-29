@@ -48,12 +48,14 @@ cd example/
 npm install
 npx tsc
 node dist/server.js
-```
 
-You will see the output: `🚀 Server listening on http://localhost:8081`. This single command starts the full example application. There's no need for a separate static file server.
+# In another terminal
+cd example/public
+npx serve
+```
 
 ## Step 4: View the Demo
 
-You're all set! **Open your browser and navigate to [http://localhost:8081](http://localhost:8081)**.
+You're all set! **Open your browser and navigate to [http://localhost:3000](http://localhost:3000)**.
 
-You will see the demo form. You can fill it out, solve the Wicketkeeper captcha, and submit it. The frontend at port `8081` sends the form data to the same Express backend, which in turn verifies the captcha with the Go server at port `8080`. Check the terminal windows for log output from each service
+You will see the demo form. You can fill it out, solve the wicketkeeper captcha, and submit it. The example backend at port `8081` sends the form data to the same Express backend, which in turn verifies the captcha with the Go server at port `8080`. Check the terminal windows for log output from each service.
