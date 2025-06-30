@@ -18,7 +18,7 @@ dockers:
       - "--pull"
       - "--platform=linux/arm64"
     image_templates:
-      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:{{ .Version }}-arm64"
+      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:v{{ .Version }}-arm64"
       - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:latest-arm64"
   - dockerfile: Dockerfile.release
     goos: linux
@@ -27,15 +27,15 @@ dockers:
       - "--pull"
       - "--platform=linux/amd64"
     image_templates:
-      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:{{ .Version }}-amd64"
+      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:v{{ .Version }}-amd64"
       - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:latest-amd64"
 
 docker_manifests:
   # https://goreleaser.com/customization/docker_manifest/
-  - name_template: "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:{{ .Version }}"
+  - name_template: "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:v{{ .Version }}"
     image_templates:
-      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:{{ .Version }}-amd64"
-      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:{{ .Version }}-arm64"
+      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:v{{ .Version }}-amd64"
+      - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:v{{ .Version }}-arm64"
   - name_template: "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:latest"
     image_templates:
       - "ghcr.io/{{ .Env.REPO_OWNER }}/{{ .ProjectName }}:latest-amd64"
