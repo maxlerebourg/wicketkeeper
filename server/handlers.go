@@ -31,22 +31,24 @@ func bloomKey(t time.Time) string {
 }
 
 func (s *Server) ensureBloom(ctx context.Context, key string) error {
-	// Create the filter only if it does not yet exist.
+	// Try to create the filter; ok if it already exists.
 	_, err := s.redisClient.Do(ctx,
 		"BF.RESERVE", key, bloomErrorRate, bloomCapacity,
-		"NONSCALING", "NX").Result()
+		"NONSCALING").Result()
 
-	if err != nil && !strings.Contains(strings.ToLower(err.Error()), "item exists") {
+	if err != nil {
+		if strings.Contains(strings.ToLower(err.Error()), "item exists") {
+			return nil
+		}
 		return fmt.Errorf("redis BF.RESERVE %s failed: %w", key, err)
 	}
 
-	// set the TTL exactly once so the key disappears after `retention`.
-	if err == nil {
-		if _, err := s.redisClient.Expire(ctx, key, retention).Result(); err != nil {
-			return fmt.Errorf("redis EXPIRE %s failed: %w", key, err)
-		}
-		log.Printf("INFO: initialized global Bloom filter %q (TTL %s)", key, retention)
+	// Only newly-created filters get the TTL.
+	if _, err := s.redisClient.Expire(ctx, key, retention).Result(); err != nil {
+		return fmt.Errorf("redis EXPIRE %s failed: %w", key, err)
 	}
+
+	log.Printf("INFO: initialized global Bloom filter %q (TTL %s)", key, retention)
 	return nil
 }
 
@@ -116,8 +118,8 @@ func (s *Server) VerifyChallenge(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		req = VerifyRequestBody{
-			Token:   r.FormValue("token"),
-			Nonce:   r.FormValue("nonce"),
+			Token:    r.FormValue("token"),
+			Nonce:    r.FormValue("nonce"),
 			Response: r.FormValue("response"),
 		}
 	} else {
